@@ -2,13 +2,13 @@ use anchor_lang::prelude::*;
 
 #[account]
 pub struct ContributorRecord {
-    /// Wallet of the donor
+    /// The donor's wallet address
     pub donor: Pubkey,
-    /// Campaign to which this contribution belongs
+    /// The campaign this contribution belongs to
     pub campaign: Pubkey,
     /// Total amount contributed by this donor (in lamports)
     pub amount: u64,
-    /// Bump for restoring the PDA address
+    /// Bump seed used to derive the PDA address
     pub bump: u8,
 }
 

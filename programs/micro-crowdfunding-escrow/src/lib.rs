@@ -7,14 +7,14 @@ pub mod state;
 
 use instructions::*;
 
-declare_id!("Escrow111111111111111111111111111111111111");
+declare_id!("4qmmmosN3tk3js12ioF2BTYaRksbrM1U3aDHZTkDnCp3");
 
 #[program]
 pub mod micro_crowdfunding_escrow {
     use super::*;
 
-    /// Start a new crowdfunding campaign.
-    /// Creates a Campaign PDA and reserves the Vault PDA address.
+    /// Launches a new crowdfunding campaign.
+    /// Creates the Campaign PDA and reserves the Vault PDA address.
     pub fn initialize_campaign(
         ctx: Context<InitializeCampaign>,
         campaign_id: u64,
@@ -24,17 +24,17 @@ pub mod micro_crowdfunding_escrow {
         instructions::initialize_campaign::handler(ctx, campaign_id, target_amount, deadline)
     }
 
-    /// Donor contributes SOL to the campaign's Vault PDA.
+    /// A donor contributes SOL into the campaign's Vault PDA.
     pub fn donate(ctx: Context<Donate>, amount: u64) -> Result<()> {
         instructions::donate::handler(ctx, amount)
     }
 
-    /// Author claims all collected funds if the target is reached.
+    /// The creator withdraws all accumulated funds if the target goal is reached.
     pub fn claim_funds(ctx: Context<ClaimFunds>) -> Result<()> {
         instructions::claim_funds::handler(ctx)
     }
 
-    /// Donor refunds their contribution if the deadline has passed and the target is not reached.
+    /// A donor reclaims their contribution if the deadline has passed and the target goal was not reached.
     pub fn refund(ctx: Context<Refund>) -> Result<()> {
         instructions::refund::handler(ctx)
     }

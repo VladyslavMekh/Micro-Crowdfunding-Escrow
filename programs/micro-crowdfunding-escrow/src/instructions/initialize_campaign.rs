@@ -23,15 +23,15 @@ pub struct InitializeCampaign<'info> {
     )]
     pub campaign: Account<'info, Campaign>,
 
-    /// Vault - this is an "empty" SystemAcount owned by the program PDA.
-    /// It physically holds the locked SOL, without its own data.
+    /// The vault is an empty SystemAccount owned by the program PDA.
+    /// It physically holds the locked SOL without storing any internal data.
     #[account(
         seeds = [VAULT_SEED, campaign.key().as_ref()],
         bump,
     )]
-    /// CHECK: this is a data-less PDA vault; the address is derived from seeds,
-    /// the signature is controlled solely by the program.
-    pub vault: UncheckedAccount<'info>,
+    /// CHECK: This is a data-less PDA vault; the address is derived via seeds,
+    /// and signing authority is controlled exclusively by the program.
+    pub vault: SystemAccount<'info>,
 
     pub system_program: Program<'info, System>,
 }
@@ -46,10 +46,7 @@ pub fn handler(
 
     require!(target_amount > 0, EscrowError::InvalidTargetAmount);
     require!(deadline > now, EscrowError::InvalidDeadline);
-    require!(
-        deadline - now <= MAX_CAMPAIGN_DURATION,
-        EscrowError::DurationTooLong
-    );
+    require!(deadline - now <= MAX_CAMPAIGN_DURATION, EscrowError::DurationTooLong);
 
     let campaign = &mut ctx.accounts.campaign;
     campaign.creator = ctx.accounts.creator.key();
