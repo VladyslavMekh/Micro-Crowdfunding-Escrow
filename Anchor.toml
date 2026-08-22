@@ -8,10 +8,10 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-micro_crowdfunding_escrow = "DBKTSZFro3BxWeocPChHUo7Ji1Ytxj8sMgY9Bo7HW2MA"
+micro_crowdfunding_escrow = "A3d9c5HeW5VrrMSiiAqGGTrPTwzESoL4XJV6gWktdbYG"
 
 [programs.devnet]
-micro_crowdfunding_escrow = "DBKTSZFro3BxWeocPChHUo7Ji1Ytxj8sMgY9Bo7HW2MA"
+micro_crowdfunding_escrow = "A3d9c5HeW5VrrMSiiAqGGTrPTwzESoL4XJV6gWktdbYG"
 
 [provider]
 cluster = "localnet"

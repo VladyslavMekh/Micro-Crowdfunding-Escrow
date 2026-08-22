@@ -1,0 +1,394 @@
+{
+  "address": "DBKTSZFro3BxWeocPChHUo7Ji1Ytxj8sMgY9Bo7HW2MA",
+  "metadata": {
+    "name": "micro_crowdfunding_escrow",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "instructions": [
+    {
+      "name": "initialize_campaign",
+      "discriminator": [
+        169,
+        88,
+        7,
+        6,
+        9,
+        165,
+        65,
+        132
+      ],
+      "accounts": [
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "campaign",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  97,
+                  109,
+                  112,
+                  97,
+                  105,
+                  103,
+                  110
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "creator"
+              },
+              {
+                "kind": "arg",
+                "path": "campaign_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "vault",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "campaign_id",
+          "type": "u64"
+        },
+        {
+          "name": "target_amount",
+          "type": "u64"
+        },
+        {
+          "name": "deadline",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "donate",
+      "discriminator": [
+        121,
+        186,
+        218,
+        211,
+        73,
+        70,
+        196,
+        180
+      ],
+      "accounts": [
+        {
+          "name": "donor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "campaign",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "contributor_record",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  99,
+                  111,
+                  110,
+                  116,
+                  114,
+                  105,
+                  98,
+                  117,
+                  116,
+                  111,
+                  114
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              },
+              {
+                "kind": "account",
+                "path": "donor"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim_funds",
+      "discriminator": [
+        145,
+        36,
+        143,
+        242,
+        168,
+        66,
+        200,
+        155
+      ],
+      "accounts": [
+        {
+          "name": "creator",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "campaign",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "refund",
+      "discriminator": [
+        2,
+        96,
+        183,
+        251,
+        63,
+        208,
+        46,
+        46
+      ],
+      "accounts": [
+        {
+          "name": "donor",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "campaign"
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "contributor_record",
+          "writable": true
+        },
+        {
+          "name": "system_program"
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Campaign",
+      "discriminator": [
+        50,
+        40,
+        49,
+        11,
+        157,
+        220,
+        229,
+        192
+      ]
+    },
+    {
+      "name": "ContributorRecord",
+      "discriminator": [
+        205,
+        80,
+        134,
+        228,
+        85,
+        135,
+        197,
+        176
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidTargetAmount",
+      "msg": "The target amount must be greater than zero."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidDeadline",
+      "msg": "The campaign deadline must be in the future."
+    },
+    {
+      "code": 6002,
+      "name": "DurationTooLong",
+      "msg": "The campaign duration exceeds the maximum allowed limit."
+    },
+    {
+      "code": 6003,
+      "name": "DonationTooSmall",
+      "msg": "The contribution amount is less than the minimum required."
+    },
+    {
+      "code": 6004,
+      "name": "CampaignExpired",
+      "msg": "The campaign deadline has passed, contributions are no longer accepted."
+    },
+    {
+      "code": 6005,
+      "name": "CampaignAlreadyFinalized",
+      "msg": "The campaign has already been finalized."
+    },
+    {
+      "code": 6006,
+      "name": "TargetNotReached",
+      "msg": "The target amount has not been reached yet, funds cannot be withdrawn."
+    },
+    {
+      "code": 6007,
+      "name": "Unauthorized",
+      "msg": "Only the campaign authority can execute the instruction."
+    },
+    {
+      "code": 6008,
+      "name": "CampaignStillActive",
+      "msg": "The campaign is still active, refunds are not available yet."
+    },
+    {
+      "code": 6009,
+      "name": "TargetAlreadyReached",
+      "msg": "The campaign target has already been reached, refunds are disabled."
+    },
+    {
+      "code": 6010,
+      "name": "InsufficientVaultBalance",
+      "msg": "Insufficient balance in the vault for this operation."
+    },
+    {
+      "code": 6011,
+      "name": "MathOverflow",
+      "msg": "An arithmetic overflow occurred during calculations."
+    },
+    {
+      "code": 6012,
+      "name": "NothingToRefund",
+      "msg": "This donor's contribution is zero; nothing to refund."
+    }
+  ],
+  "types": [
+    {
+      "name": "Campaign",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "target_amount",
+            "type": "u64"
+          },
+          {
+            "name": "current_amount",
+            "type": "u64"
+          },
+          {
+            "name": "deadline",
+            "type": "i64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "vault_bump",
+            "type": "u8"
+          },
+          {
+            "name": "is_finalized",
+            "type": "bool"
+          },
+          {
+            "name": "campaign_id",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ContributorRecord",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "donor",
+            "type": "pubkey"
+          },
+          {
+            "name": "campaign",
+            "type": "pubkey"
+          },
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          }
+        ]
+      }
+    }
+  ]
+}

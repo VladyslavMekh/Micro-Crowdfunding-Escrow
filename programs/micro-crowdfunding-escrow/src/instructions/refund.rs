@@ -13,7 +13,8 @@ pub struct Refund<'info> {
     #[account(
         seeds = [
             CAMPAIGN_SEED,
-            campaign.key().as_ref(),
+            // Tu zmiana;
+            campaign.creator.key().as_ref(),
             &campaign.campaign_id.to_le_bytes(),
         ],
         bump = campaign.bump,
