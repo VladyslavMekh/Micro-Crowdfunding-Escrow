@@ -63,7 +63,7 @@ export function SolPriceChart() {
             }
         } catch (err) {
             console.error(err);
-            setError("Не вдалося отримати ціну SOL.");
+            setError("Unable to get SOL price.");
         } finally {
             setLoading(false);
         }
@@ -102,7 +102,7 @@ export function SolPriceChart() {
                 </div>
 
                 <div className="sol-chart-loading">
-                    Завантаження графіка...
+                    Loading graphics…
                 </div>
             </section>
         );

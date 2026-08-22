@@ -142,8 +142,8 @@ export function CampaignCard({ row, onChanged }: { row: CampaignRow; onChanged: 
         <div className="donate-row">
           <input
             type="number"
-            min="0"
-            step="0.001"
+            min="1"
+            step="1"
             placeholder="Suma in SOL"
             value={donateAmount}
             onChange={(e) => setDonateAmount(e.target.value)}

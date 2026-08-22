@@ -30,7 +30,7 @@ export function useCampaigns() {
       setCampaigns(rows);
     } catch (e) {
       console.error(e);
-      setError("Failde to load campaigns. Check cluster connection.");
+      setError("Failed to load campaigns. Check cluster connection.");
     } finally {
       setLoading(false);
     }

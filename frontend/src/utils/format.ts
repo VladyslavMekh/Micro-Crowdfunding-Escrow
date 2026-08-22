@@ -1,5 +1,5 @@
 export function formatDeadline(unixSeconds: number): string {
-  return new Date(unixSeconds * 1000).toLocaleString("uk-UA", {
+  return new Date(unixSeconds * 1000).toLocaleString("en-EN", {
     day: "2-digit",
     month: "short",
     year: "numeric",

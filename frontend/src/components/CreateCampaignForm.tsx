@@ -65,29 +65,34 @@ export function CreateCampaignForm({ onCreated }: { onCreated: () => void }) {
 
   return (
     <form className="card create-form" onSubmit={handleSubmit}>
-      <h2>Нова кампанія</h2>
+      <h2>New campaign</h2>
       <div className="field-row">
         <label>
-          Ціль (SOL)
+          Target (SOL)
           <input
             type="number"
             min="0"
-            step="0.01"
-            placeholder="Example 5"
+            step="1"
+            placeholder="Example: 5"
             value={targetSol}
             onChange={(e) => setTargetSol(e.target.value)}
             required
+            onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity("Please fill out this field.")}
+            onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           />
         </label>
         <label>
-          Тривалість (днів)
+          Duration (days)
           <input
             type="number"
             min="1"
             max="90"
+            placeholder="Example: 1"
             value={days}
             onChange={(e) => setDays(e.target.value)}
             required
+            onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity("Please fill out this field.")}
+            onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           />
         </label>
       </div>

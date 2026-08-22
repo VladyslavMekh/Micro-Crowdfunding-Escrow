@@ -4,7 +4,7 @@
     flex-direction: column;
 }
 
-/* ---------- Header ---------- */
+/* Header */
 
 .app-header {
     display: flex;
@@ -38,7 +38,7 @@
 .brand-title {
     font-family: var(--font-display);
     font-weight: 700;
-    font-size: 1.15rem;
+    font-size: 0.8rem;
     letter-spacing: -0.01em;
 }
 
@@ -55,57 +55,40 @@
 
     background: var(--orange) !important;
     color: #fff !important;
-    font-family: var(--font-body) !important;
+
+    font-family: var(--font-display) !important;
     font-weight: 100 !important;
-    border-radius: 4px !important;
-    height: 50px !important;
-    padding: 10px 20px !important;
 
-    transition: transform 0.2s ease, box-shadow 0.3s ease !important;
-}
+    border-radius: 5px !important;
+    height: 40px !important;
+    padding: 10px 15px !important;
 
-.wallet-adapter-button::before {
-    content: "" !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
+    border: none !important;
 
-    background: var(--orange-deep) !important;
+    cursor: pointer !important;
 
-    transform: translateX(-100%) !important;
-    transition: transform 0.35s ease !important;
-
-    z-index: 0 !important;
-}
-
-.wallet-adapter-button > * {
-    position: relative !important;
-    z-index: 1 !important;
-}
-
-.wallet-adapter-button:not([disabled]):hover::before {
-    transform: translateX(0) !important;
+    transition:
+            background 0.15s ease,
+            transform 0.08s ease !important;
 }
 
 .wallet-adapter-button:not([disabled]):hover {
-    transform: translateY(-2px) !important;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2) !important;
+    background: var(--orange-dark) !important;
 }
 
 .wallet-adapter-button:not([disabled]):active {
-    transform: translateY(0) !important;
-    box-shadow: none !important;
+    transform: scale(0.98) !important;
 }
 
 .wallet-adapter-button-trigger {
     background: var(--orange) !important;
 }
 
-/* The end button select wallet style */
+.wallet-adapter-button-trigger:not([disabled]):hover {
+    background: var(--orange-dark) !important;
+}
 
-/* ---------- Content grid ---------- */
+/* Content grid */
 
 .content {
     flex: 1;
@@ -140,7 +123,7 @@
     color: var(--ink);
 }
 
-/* ---------- Card primitive ---------- */
+/* Card primitive */
 
 .card {
     background: var(--surface);
@@ -171,7 +154,7 @@
     line-height: 1.55;
 }
 
-/* ---------- Create campaign form ---------- */
+/* Create campaign form */
 
 .field-row {
     display: grid;
@@ -191,10 +174,10 @@
 
 .create-form input,
 .donate-row input {
-    border: 1px solid var(--border);
-    border-radius: 10px;
+    border: 0,5px solid var(--border);
+    border-radius: 5px;
     padding: 10px 12px;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     background: var(--surface-sunken);
     color: var(--ink);
     font-family: var(--font-mono);
@@ -208,7 +191,7 @@
 
 .btn {
     border: none;
-    border-radius: 999px;
+    border-radius: 5px;
     padding: 11px 18px;
     font-weight: 600;
     font-size: 0.92rem;
@@ -232,13 +215,13 @@
 }
 
 .btn-primary:not(:disabled):hover {
-    background: var(--orange-deep);
+    background: var(--orange-dark);
 }
 
 .btn-outline {
     background: transparent;
     color: var(--orange-deep);
-    border: 1.5px solid var(--orange);
+    border: 0,5px solid var(--orange);
     width: 100%;
     margin-top: 10px;
 }
@@ -260,7 +243,7 @@
     color: var(--danger);
 }
 
-/* ---------- Campaign grid & card ---------- */
+/* Campaign grid & card */
 
 .campaign-grid {
     display: grid;
@@ -372,14 +355,14 @@
     white-space: nowrap;
 }
 
-/* ---------- Empty / loading states ---------- */
+/* Empty / loading states */
 
 .hint {
     color: var(--ink-muted);
     font-size: 0.92rem;
     padding: 40px 0;
     text-align: center;
-    border: 1px dashed var(--border);
+    border: 2px dashed var(--border);
     border-radius: var(--radius);
 }
 
@@ -388,7 +371,7 @@
     border-color: var(--danger-tint);
 }
 
-/* ---------- SOL price chart ---------- */
+/* SOL price chart */
 
 .sol-chart-card {
     width: calc(100% - clamp(32px, 8vw, 96px));
@@ -517,5 +500,190 @@
 
     .sol-chart-footer {
         flex-wrap: wrap;
+    }
+}
+
+.info-btn {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    height: 40px;
+    padding: 0 20px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: var(--orange);
+    color: #fff;
+
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+    transition:
+            background 0.15s ease,
+            transform 0.08s ease;
+}
+
+.info-btn:hover {
+    background: var(--orange-dark);
+}
+
+.info-btn:active {
+    transform: scale(0.96);
+}
+
+/* Modal */
+
+.info-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+}
+
+
+/* Light overlay */
+
+.info-modal-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: rgba(255, 255, 255, 0.82);
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+
+/* Modal window */
+
+.info-modal-card {
+    position: relative;
+    z-index: 1;
+
+    width: min(680px, 100%);
+    max-height: 80vh;
+
+    overflow-y: auto;
+
+    padding: 32px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+
+    box-shadow:
+            0 20px 60px rgba(0, 0, 0, 0.12),
+            0 4px 16px rgba(0, 0, 0, 0.06);
+
+    animation: infoModalAppear 0.2s ease-out;
+}
+
+@keyframes infoModalAppear {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+.info-modal-card h2 {
+    margin: 0 40px 20px 0;
+
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+
+    color: var(--ink);
+}
+
+
+.info-modal-card p {
+    margin: 0 0 16px;
+
+    color: var(--ink-muted);
+
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+.info-modal-card p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Close button */
+
+.info-modal-close {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid var(--border);
+    border-radius: 50%;
+
+    background: var(--surface);
+    color: var(--ink-muted);
+
+    font-size: 1.4rem;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+            background 0.15s ease,
+            border-color 0.15s ease,
+            color 0.15s ease;
+}
+
+.info-modal-close:hover {
+    background: var(--orange-tint);
+    border-color: var(--orange);
+    color: var(--orange-deep);
+}
+
+
+/* Mobile */
+
+@media (max-width: 600px) {
+    .info-btn {
+        top: 12px;
+        right: 125px;
+        height: 40px;
+        padding: 0 11px;
+    }
+
+    .info-modal {
+        padding: 14px;
+    }
+
+    .info-modal-card {
+        padding: 24px;
+        max-height: 85vh;
     }
 }
