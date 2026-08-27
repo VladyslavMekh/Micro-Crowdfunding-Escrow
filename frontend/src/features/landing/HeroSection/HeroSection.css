@@ -1,0 +1,335 @@
+.hero {
+    padding: 80px 0;
+}
+
+.hero__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+}
+
+/* Left side */
+.hero__content {
+    max-width: 540px;
+}
+
+.hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--orange);
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.hero__title {
+    font-size: 56px;
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+}
+
+.hero__title-accent {
+    color: var(--orange);
+}
+
+.hero__description {
+    font-size: 18px;
+    color: var(--ink-muted);
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.hero__actions {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 48px;
+}
+
+.hero__primary-btn {
+    background-color: var(--orange);
+    color: var(--bg);
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 32px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 12px rgba(217, 106, 2, 0.2);
+}
+
+.hero__primary-btn:hover {
+    background-color: var(--orange-dark);
+    transform: translateY(-2px);
+}
+
+.hero__secondary-btn {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 500;
+    padding: 16px 32px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.2s;
+}
+
+.hero__secondary-btn:hover {
+    border-color: var(--ink-muted);
+}
+
+.hero__social-proof {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.hero__avatars {
+    display: flex;
+}
+
+.hero__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    margin-left: -12px;
+}
+
+.hero__avatar:first-child {
+    margin-left: 0;
+}
+
+.hero__avatar--1 { background-color: #d1d5db; }
+.hero__avatar--2 { background-color: #9ca3af; }
+.hero__avatar--3 { background-color: #f3f4f6; }
+.hero__avatar--4 { background-color: #e5e7eb; }
+
+.hero__social-text {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.4;
+}
+
+/* Right side (Card) */
+.hero__right {
+    position: relative;
+}
+
+.campaign-card {
+    background-color: var(--surface);
+    border-radius: 24px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    box-shadow: 0 20px 40px rgba(36, 29, 21, 0.05);
+    z-index: 2;
+    position: relative;
+}
+
+.campaign-card__badge {
+    display: inline-block;
+    background-color: var(--orange-tint);
+    color: var(--orange);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+}
+
+.campaign-card__title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.campaign-card__author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.campaign-card__author-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--surface-sunken);
+}
+
+.campaign-card__author-name {
+    font-size: 14px;
+    color: var(--ink-muted);
+}
+
+.campaign-card__verified {
+    color: #3b82f6;
+    font-size: 14px;
+}
+
+.campaign-card__desc {
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.campaign-card__stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.campaign-card__stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.campaign-card__label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 4px;
+}
+
+.campaign-card__value {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.campaign-card__value--orange {
+    color: var(--orange);
+}
+
+.campaign-card__sub {
+    font-size: 11px;
+    color: var(--ink-muted);
+}
+
+.campaign-card__progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--surface-sunken);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.campaign-card__progress-fill {
+    height: 100%;
+    background-color: var(--orange);
+    border-radius: 4px;
+}
+
+.campaign-card__actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.campaign-card__support-btn {
+    flex: 1;
+    background-color: var(--orange);
+    color: var(--bg);
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.campaign-card__support-btn:hover {
+    background-color: var(--orange-dark);
+}
+
+.campaign-card__share-btn {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--ink);
+    padding: 14px 24px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: border-color 0.2s;
+}
+
+.campaign-card__share-btn:hover {
+    border-color: var(--ink-muted);
+}
+
+.campaign-card_currencies-label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    margin-bottom: 8px;
+}
+
+.campaign-card__coins {
+    display: flex;
+    gap: 8px;
+}
+
+.coin {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+}
+
+.coin--btc { background: var(--orange-tint); color: var(--orange); }
+.coin--eth { background: #eff6ff; color: #2563eb; }
+.coin--usdt { background: #ecfdf5; color: #059669; }
+.coin--bnb { background: #fefce8; color: #ca8a04; }
+
+/* Floating BTC icon */
+.hero__floating-btc {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    background-color: var(--orange);
+    color: var(--bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    box-shadow: 0 10px 20px rgba(217, 106, 2, 0.3);
+    z-index: 3;
+}
+
+/* --- Adaptability --- */
+@media (max-width: 1024px) {
+    .hero__container {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .hero__title {
+        font-size: 42px;
+    }
+}
+
+@media (max-width: 640px) {
+    .hero__actions {
+        flex-direction: column;
+    }
+
+    .campaign-card__stats {
+        grid-template-columns: 1fr;
+    }
+}

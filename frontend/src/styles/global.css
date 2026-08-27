@@ -1,0 +1,58 @@
+:root {
+    /* Brand Colors */
+    --bg: #fbf7f2;
+    --surface: #ffffff;
+    --surface-sunken: #f6efe4;
+    --border: #ecdfcc;
+    --ink: #241d15;
+    --ink-muted: #8a7d6a;
+    --orange: #d96a02;
+    --orange-deep: #d96a02;
+    --orange-dark: #AF5502FF;
+    --orange-tint: #fff1de;
+    --success: #1e8e5a;
+    --success-tint: #e6f5ed;
+    --danger: #c1432b;
+    --danger-tint: #fbe9e4;
+
+    /* Fonts */
+    --font-display: "Space Grotesk", "Inter", sans-serif;
+    --font-body: "Inter", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--ink);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
