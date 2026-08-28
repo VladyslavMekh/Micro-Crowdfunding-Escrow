@@ -93,6 +93,11 @@
     height: 100%;
 }
 
+.crypto-market__chart-svg path {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    vector-effect: non-scaling-stroke;
+}
+
 @media (max-width: 1024px) {
     .crypto-market__grid {
         grid-template-columns: repeat(2, 1fr);
