@@ -64,6 +64,9 @@
     gap: 8px;
     transition: background-color 0.2s, transform 0.2s;
     box-shadow: 0 4px 12px rgba(217, 106, 2, 0.2);
+
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .hero__primary-btn:hover {
@@ -293,11 +296,15 @@
 .coin--usdt { background: #ecfdf5; color: #059669; }
 .coin--bnb { background: #fefce8; color: #ca8a04; }
 
-/* Floating BTC icon */
-.hero__floating-btc {
+/* Floating menu icon */
+.hero__floating-wrapper {
     position: absolute;
     bottom: -20px;
     right: -20px;
+    z-index: 10;
+}
+
+.hero__floating-btn {
     width: 80px;
     height: 80px;
     background-color: var(--orange);
@@ -306,11 +313,79 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
-    font-weight: 700;
     box-shadow: 0 10px 20px rgba(217, 106, 2, 0.3);
-    z-index: 3;
+    transition: background-color 0.2s, transform 0.2s;
+    cursor: pointer;
 }
+
+.hero__floating-btn:hover {
+    background-color: var(--orange-dark);
+    transform: scale(1.05);
+}
+
+/* Menu with list */
+.hero__floating-menu {
+    position: absolute;
+    bottom: 95px;
+    right: 0;
+    width: 280px;
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 20px 40px rgba(36, 29, 21, 0.15);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Title header menu */
+.hero__floating-menu-header {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+}
+
+.hero__floating-menu-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.hero__floating-menu-item:hover {
+    background-color: var(--surface-sunken);
+    border-color: var(--orange);
+    transform: translateY(-2px);
+}
+
+.hero__floating-menu-item-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.hero__floating-menu-item-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--ink-muted);
+}
+
+.hero__floating-menu-item-progress {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--orange);
+}
+
+
 
 /* --- Adaptability --- */
 @media (max-width: 1024px) {
@@ -321,6 +396,21 @@
 
     .hero__title {
         font-size: 42px;
+    }
+
+    .hero__floating-wrapper {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .hero__floating-btn {
+        width: 60px;
+        height: 60px;
+    }
+
+    .hero__floating-menu {
+        width: 240px;
+        bottom: 75px;
     }
 }
 

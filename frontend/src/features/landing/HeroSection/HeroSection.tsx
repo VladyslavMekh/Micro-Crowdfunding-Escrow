@@ -1,7 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './HeroSection.css';
+import { Link } from "react-router-dom";
+
+const activeCampaigns = [
+    { id: 1, title: "For Example", raised: "12.45 ETH", progress: 62 },
+    { id: 2, title: "Drones for ZSU", raised: "5.20 ETH", progress: 35 },
+    { id: 3, title: "Medical Aid", raised: "2.10 ETH", progress: 15 },
+];
 
 export const HeroSection: React.FC = () => {
+
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
     return (
         <section className='hero'>
             <div className='hero__container'>
@@ -19,9 +29,9 @@ export const HeroSection: React.FC = () => {
                     </p>
 
                     <div className='hero__actions'>
-                        <button className='hero__primary-btn'>
+                        <Link to="/create" className='hero__primary-btn'>
                             Create a fundraiser <span className='hero__btn-arrow'>+</span>
-                        </button>
+                        </Link>
                         <button className='hero__secondary-btn'>
                             Learn more <span className='hero__btn-down'>↓</span>
                         </button>
@@ -46,14 +56,14 @@ export const HeroSection: React.FC = () => {
                     <div className='campaign-card'>
                         <div className='campaign-card__header'>
                             <span className='campaign-card__badge'>Active fundraising campaign</span>
-                            <h3 className='campaign-card__title'>For drones for the Armed Forces of Ukraine</h3>
+                            <h3 className='campaign-card__title'>For Example</h3>
                             <div className='campaign-card__author'>
                                 <div className='campaign-card__author-avatar'></div>
-                                <span className='campaign-card--author-name'>HelpUkraine</span>
+                                <span className='campaign-card--author-name'>TestUser</span>
                                 <span className='campaign-card__verified'>✔</span>
                             </div>
                             <p className='campaign-card__decs'>
-                                We are raising dunds to purchase FPV drones and components for our defenders.
+                                Raising funds for medical treatment, supporting people in difficult situations, or other community-driven initiatives.
                             </p>
                         </div>
 
@@ -93,8 +103,41 @@ export const HeroSection: React.FC = () => {
                             </div>
                         </div>
                         
-                        {/* Floating BTC icon */}
-                        <div className='hero__floating-btc'>B</div>
+                        {/* Floating menu icon */}
+                        <div className='hero__floating-wrapper'>
+                            <button 
+                                className='hero__floating-btn'
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            >
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                                    <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                    <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                    <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                </svg>
+                            </button>
+
+                            {isMenuOpen && (
+                                <div className='hero__floating-menu'>
+                                    <div className='hero__floating-menu-header'>
+                                        <span>Active Campaigns</span>
+                                    </div>
+                                    <div className='hero__floating-menu-list'>
+                                        {activeCampaigns.map((campaign) => (
+                                            <a href={`/campaign/${campaign.id}`} key={campaign.id} className="hero__floating-menu-item">
+                                                <div className='hero__floating-menu-item-title'>{campaign.title}</div>
+                                                <div className='hero__floating-menu-item-stats'>
+                                                    <span>{campaign.raised}</span>
+                                                    <span className='hero__floating-menu-item-progress'>{campaign.progress}%</span>
+                                                </div>
+                                            </a>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
