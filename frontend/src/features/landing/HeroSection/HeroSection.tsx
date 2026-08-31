@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import './HeroSection.css';
 import { Link } from "react-router-dom";
 
+import btsIcon from "../../../assets/icons/bitcoin.png";
+import ethIcon from "../../../assets/icons/ethereum.png";
+import usdtIcon from "../../../assets/icons/usdt.png";
+import bnbIcon from "../../../assets/icons/binance.png";
+import solanaIcon from "../../../assets/icons/solana.png";
+
+import verifiedIcon from "../../../assets/icons/other/approved.png";
+
 const activeCampaigns = [
     { id: 1, title: "For Example", raised: "12.45 ETH", progress: 62 },
     { id: 2, title: "Drones for ZSU", raised: "5.20 ETH", progress: 35 },
@@ -11,6 +19,8 @@ const activeCampaigns = [
 export const HeroSection: React.FC = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const walletAddress = "0x1234567890abcdef";
 
     return (
         <section className='hero'>
@@ -54,18 +64,24 @@ export const HeroSection: React.FC = () => {
                 {/* Right side: card for fundraisers */}
                 <div className='hero__right'>
                     <div className='campaign-card'>
-                        <div className='campaign-card__header'>
-                            <span className='campaign-card__badge'>Active fundraising campaign</span>
-                            <h3 className='campaign-card__title'>For Example</h3>
-                            <div className='campaign-card__author'>
-                                <div className='campaign-card__author-avatar'></div>
-                                <span className='campaign-card--author-name'>TestUser</span>
-                                <span className='campaign-card__verified'>✔</span>
-                            </div>
-                            <p className='campaign-card__decs'>
-                                Raising funds for medical treatment, supporting people in difficult situations, or other community-driven initiatives.
-                            </p>
-                        </div>
+
+                       <div className='campaign-card__header'>
+                           <div className='campaign-card__title-wrapper'>
+                               <h3 className='campaign-card__title'>For Example</h3>
+                               <span className='campaign-card__badge'>Active fundraising campaign</span>
+                           </div>
+                       </div>
+                        
+                        {/*<span className='campaign-card__author-name'>{walletAddress}</span>*/}
+                        {/*<img*/}
+                        {/*    src={verifiedIcon}*/}
+                        {/*    alt='Verified'*/}
+                        {/*    className='campaign-card__verified-icon'*/}
+                        {/*/>*/}
+
+                        <p className='campaign-card__desc'>
+                            Raising funds for medical treatment, supporting people in difficult situations, or other community-driven initiatives.
+                        </p>
 
                         <div className='campaign-card__stats'>
                             <div className='campaign-card__stat'>
@@ -96,10 +112,26 @@ export const HeroSection: React.FC = () => {
                         <div className='campaign-card_currencies'>
                             <p className='campaign-card__currencies-label'>We accept cryptocurrencies:</p>
                             <div className='campaign-card__coins'>
-                                <span className="coin coin--btc">₿ BTC</span>
-                                <span className="coin coin--eth">Ξ ETH</span>
-                                <span className="coin coin--usdt">T USDT</span>
-                                <span className="coin coin--bnb">B BNB</span>
+                                <div className='coin coin--btc'>
+                                    <img src={btsIcon} alt="Bitcoin" className="coin__icon" />
+                                    BTC
+                                </div>
+                                <div className='coin coin--eth'>
+                                    <img src={ethIcon} alt="Ethereum" className="coin__icon" />
+                                    ETH
+                                </div>
+                                <div className='coin coin--usdt'>
+                                    <img src={usdtIcon} alt="Tether" className="coin__icon" />
+                                    USDT
+                                </div>
+                                <div className='coin coin--bnb'>
+                                    <img src={bnbIcon} alt="BNB" className="coin__icon" />
+                                    BNB
+                                </div>
+                                <div className='coin coin--sol'>
+                                    <img src={solanaIcon} alt="Solana" className="coin__icon" />
+                                    SOL
+                                </div>
                             </div>
                         </div>
                         
