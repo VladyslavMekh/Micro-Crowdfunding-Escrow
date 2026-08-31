@@ -82,7 +82,7 @@ pub fn handler(ctx: Context<Refund>) -> Result<()> {
     msg!("rent exemption fees are automatically returned via close = donor.");
 
     // close = donor` in the account attributes will automatically close
-    // the contributor_record and return the rent lamports to the donor at the end of the instruction.
+    // the contributor_record and return the rent lamports to the donor at the end of the instructions.
 
     Ok(())
 }

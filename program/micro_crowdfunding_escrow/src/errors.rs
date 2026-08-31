@@ -23,7 +23,7 @@ pub enum EscrowError {
     #[msg("The target amount has not been reached yet, funds cannot be withdrawn.")]
     TargetNotReached,
 
-    #[msg("Only the campaign authority can execute the instruction.")]
+    #[msg("Only the campaign authority can execute the instructions.")]
     Unauthorized,
 
     #[msg("The campaign is still active, refunds are not available yet.")]

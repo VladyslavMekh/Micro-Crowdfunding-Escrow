@@ -7,7 +7,7 @@ pub mod state;
 
 use instructions::*;
 
-declare_id!("Wallet key = ......");
+declare_id!("29ixMA7TLbTwbfaVotcXT21SaZdkS3Yt4erVjxVYFzvT");
 
 #[program]
 pub mod micro_crowdfunding_escrow {
