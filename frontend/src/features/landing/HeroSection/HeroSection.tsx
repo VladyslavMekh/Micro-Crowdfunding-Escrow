@@ -8,19 +8,35 @@ import usdtIcon from "../../../assets/icons/usdt.png";
 import bnbIcon from "../../../assets/icons/binance.png";
 import solanaIcon from "../../../assets/icons/solana.png";
 
+import charityImg from "../../../assets/images/Chairity.png";
+import educationImg from "../../../assets/images/Education.png";
+import medicalImg from "../../../assets/images/Medical.png";
+import militaryImg from "../../../assets/images/Millitary.png";
+import techImg from "../../../assets/images/Tech.png";
+
 import verifiedIcon from "../../../assets/icons/other/approved.png";
 
 const activeCampaigns = [
-    { id: 1, title: "For Example", raised: "12.45 ETH", progress: 62 },
-    { id: 2, title: "Drones for ZSU", raised: "5.20 ETH", progress: 35 },
-    { id: 3, title: "Medical Aid", raised: "2.10 ETH", progress: 15 },
+    { id: 1, title: "For Example", raised: "12.45 ETH", progress: 62, category: "Tech" },
+    { id: 2, title: "Drones for ZSU", raised: "5.20 ETH", progress: 35, category: "Military" },
+    { id: 3, title: "Medical Aid", raised: "2.10 ETH", progress: 15, category: "Tech" },
 ];
+
+const categoryImages: Record<string, string> = {
+    Tech: techImg,
+    Military: militaryImg,
+    Medical: medicalImg,
+    Education: educationImg,
+    Charity: charityImg,
+};
 
 export const HeroSection: React.FC = () => {
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const walletAddress = "0x1234567890abcdef";
+
+    const [activeCampaign, setActiveCampaign] = useState(activeCampaigns[0]);
 
     return (
         <section className='hero'>
@@ -46,19 +62,6 @@ export const HeroSection: React.FC = () => {
                             Learn more <span className='hero__btn-down'>↓</span>
                         </button>
                     </div>
-
-                    <div className='hero__social-proof'>
-                        <div className='hero__avatars'>
-                            <div className='hero__avatar hero__avatar--1'></div>
-                            <div className='hero__avatar hero__avatar--2'></div>
-                            <div className='hero__avatar hero__avatar--3'></div>
-                            <div className='hero__avatar hero__avatar--4'></div>
-                        </div>
-                        <p className='hero__social-text'>
-                            0 active fundraisers <br />
-                            and $0 raised by the community
-                        </p>
-                    </div>
                 </div>
 
                 {/* Right side: card for fundraisers */}
@@ -67,17 +70,24 @@ export const HeroSection: React.FC = () => {
 
                        <div className='campaign-card__header'>
                            <div className='campaign-card__title-wrapper'>
-                               <h3 className='campaign-card__title'>For Example</h3>
-                               <span className='campaign-card__badge'>Active fundraising campaign</span>
+                               <h3 className='campaign-card__title'>Drones for Ukraine!</h3>
+                               <span className='campaign-card__badge'>Active</span>
                            </div>
                        </div>
+
+                        <img
+                            src={categoryImages[activeCampaign.category]}
+                            className="campaign-card__image"
+                        />
                         
-                        {/*<span className='campaign-card__author-name'>{walletAddress}</span>*/}
-                        {/*<img*/}
-                        {/*    src={verifiedIcon}*/}
-                        {/*    alt='Verified'*/}
-                        {/*    className='campaign-card__verified-icon'*/}
-                        {/*/>*/}
+                        <div className='campaign-card__author'>
+                            <span className='campaign-card__author-name'>{walletAddress}</span>
+                            <img
+                                src={verifiedIcon}
+                                alt='Verified'
+                                className='campaign-card__verified-icon'
+                            />
+                        </div>
 
                         <p className='campaign-card__desc'>
                             Raising funds for medical treatment, supporting people in difficult situations, or other community-driven initiatives.
@@ -106,7 +116,7 @@ export const HeroSection: React.FC = () => {
 
                         <div className='campaign-card__actions'>
                             <button className='campaign-card__support-btn'>Support <span>→</span></button>
-                            <button className='campaign-card__share-btn'>Share <span>↪</span></button>
+                            <button className='campaign-card__share-btn'>Share</button>
                         </div>
 
                         <div className='campaign-card_currencies'>
