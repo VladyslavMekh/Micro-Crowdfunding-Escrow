@@ -10,7 +10,7 @@ predefined rules – instead of relying on a trusted third party.
 The project consists of two parts:
 
 – **`program/`** – the on-chain smart contract (program) build with
-the [Anchor](https://www.anchor-lang.com/) framework. 
+the [Anchor](https://www.anchor-lang.com/) framework. </br>
 – **`frontend/`** – a client application for interacting with the program
 (creating campaigns, contributing, checking escrow status).
 
