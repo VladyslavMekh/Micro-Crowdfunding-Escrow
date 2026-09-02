@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './HeroSection.css';
 import { Link } from "react-router-dom";
 
@@ -37,6 +37,30 @@ export const HeroSection: React.FC = () => {
     const walletAddress = "0x1234567890abcdef";
 
     const [activeCampaign, setActiveCampaign] = useState(activeCampaigns[0]);
+
+    const floatingMenuRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!isMenuOpen) return;
+
+        const handleClickOutside = (e: MouseEvent) => {
+            if (floatingMenuRef.current && !floatingMenuRef.current.contains(e.target as Node)) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === "Escape") setIsMenuOpen(false);
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleEscape);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleEscape);
+        };
+    }, [isMenuOpen]);
 
     return (
         <section className='hero'>
@@ -146,9 +170,9 @@ export const HeroSection: React.FC = () => {
                         </div>
                         
                         {/* Floating menu icon */}
-                        <div className='hero__floating-wrapper'>
-                            <button 
-                                className='hero__floating-btn'
+                        <div className="hero__floating-wrapper" ref={floatingMenuRef}>
+                            <button
+                                className="hero__floating-btn"
                                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                             >
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -162,19 +186,26 @@ export const HeroSection: React.FC = () => {
                             </button>
 
                             {isMenuOpen && (
-                                <div className='hero__floating-menu'>
-                                    <div className='hero__floating-menu-header'>
+                                <div className="hero__floating-menu">
+                                    <div className="hero__floating-menu-header">
                                         <span>Active Campaigns</span>
                                     </div>
-                                    <div className='hero__floating-menu-list'>
+                                    <div className="hero__floating-menu-list">
                                         {activeCampaigns.map((campaign) => (
-                                            <a href={`/campaign/${campaign.id}`} key={campaign.id} className="hero__floating-menu-item">
-                                                <div className='hero__floating-menu-item-title'>{campaign.title}</div>
-                                                <div className='hero__floating-menu-item-stats'>
-                                                    <span>{campaign.raised}</span>
-                                                    <span className='hero__floating-menu-item-progress'>{campaign.progress}%</span>
+                                            <div key={campaign.id} className="hero__floating-menu-item">
+                                                <div className="hero__floating-menu-item-top">
+                                                    <div className="hero__floating-menu-item-info">
+                                                        <div className="hero__floating-menu-item-title">{campaign.title}</div>
+                                                        <div className="hero__floating-menu-item-stats">
+                                                            <span>{campaign.raised}</span>
+                                                            <span className="hero__floating-menu-item-progress">{campaign.progress}%</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </a>
+                                                <div className="hero__floating-menu-item-progress-bar">
+                                                    <div className="hero__floating-menu-item-progress-fill" style={{ width: `${campaign.progress}%` }}></div>
+                                                </div>
+                                            </div>
                                         ))}
                                     </div>
                                 </div>

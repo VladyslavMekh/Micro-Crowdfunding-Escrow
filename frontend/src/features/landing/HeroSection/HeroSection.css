@@ -351,50 +351,59 @@
     transform: scale(1.05);
 }
 
-/* Menu with list */
+/* Menu */
 .hero__floating-menu {
     position: absolute;
-    bottom: 95px;
+    bottom: 96px;
     right: 0;
     width: 280px;
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 20px 40px rgba(36, 29, 21, 0.15);
-    max-height: 300px;
-    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(36, 29, 21, 0.12);
+    padding: 8px;
+    z-index: 20;
 }
 
-/* Title header menu */
 .hero__floating-menu-header {
-    font-size: 14px;
+    padding: 10px 12px 6px;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--ink);
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border);
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero__floating-menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
 .hero__floating-menu-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 12px;
-    border-radius: 8px;
-    transition: background-color 0.2s;
-    text-decoration: none;
-    border: 1px solid transparent;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.15s;
 }
 
 .hero__floating-menu-item:hover {
+    border: 1px solid var(--orange);
     background-color: var(--surface-sunken);
-    border-color: var(--orange);
-    transform: translateY(-2px);
+}
+
+.hero__floating-menu-item-top {
+    margin-bottom: 6px;
+}
+
+.hero__floating-menu-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .hero__floating-menu-item-title {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--ink);
 }
@@ -402,18 +411,29 @@
 .hero__floating-menu-item-stats {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    font-size: 13px;
+    font-size: 12px;
     color: var(--ink-muted);
+    font-family: var(--font-mono);
 }
 
 .hero__floating-menu-item-progress {
-    font-size: 12px;
-    font-weight: 600;
     color: var(--orange);
+    font-weight: 600;
 }
 
+.hero__floating-menu-item-progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--surface-sunken);
+    border-radius: 4px;
+    overflow: hidden;
+}
 
+.hero__floating-menu-item-progress-fill {
+    height: 100%;
+    background-color: var(--orange);
+    border-radius: 4px;
+}
 
 /* --- Adaptability --- */
 @media (max-width: 1024px) {
