@@ -157,10 +157,10 @@ yarn dev
 
 ## Roadmap
 
-– [ ] Support for milestone-based partial payouts
-– [ ] Contributor voting for early fund release/refund
-– [ ] Smart contract security audit
-– [ ] Mainnet-beta deployment
+– [ ] Support for milestone-based partial payouts </br>
+– [ ] Contributor voting for early fund release/refund </br>
+– [ ] Smart contract security audit </br>
+– [ ] Mainnet-beta deployment </br>
 
 ## License
 
