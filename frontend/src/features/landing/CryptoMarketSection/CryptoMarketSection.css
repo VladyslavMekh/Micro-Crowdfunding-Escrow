@@ -9,27 +9,36 @@
     padding: 0 24px;
 }
 
-.crypto-market__title {
-    font-size: 36px;
-    font-weight: 700;
+.crypto-market__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    margin-bottom: 12px;
+    margin-bottom: 40px;
+}
+
+.crypto-market__title {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 .crypto-market__subtitle {
-    text-align: center;
-    color: var(--ink-muted);
-    margin-bottom: 60px;
     font-size: 16px;
+    color: var(--ink-muted);
 }
 
 .crypto-market__grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 24px;
+    margin-bottom: 40px;
 }
 
 .crypto-market__card {
+    width: calc(33.33% - 16px);
+    min-width: 280px;
     background-color: var(--surface);
     border: 1px solid var(--border);
     border-radius: 16px;
@@ -42,50 +51,72 @@
     box-shadow: 0 10px 20px rgba(36, 29, 21, 0.05);
 }
 
-.crypto-market__header {
+.crypto-market__card-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.crypto-market__symbol {
-    font-family: var(--font-mono);
-    font-weight: 700;
-    font-size: 14px;
-    padding: 4px 8px;
-    border-radius: 6px;
-}
-
-.crypto-market__change {
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.crypto-market__change--up {
-    color: var(--success);
-}
-
-.crypto-market__change--down {
-    color: var(--danger);
-}
-
-.crypto-market__name {
-    font-size: 14px;
-    color: var(--ink-muted);
-    margin-bottom: 4px;
-}
-
-.crypto-market__price {
-    font-family: var(--font-mono);
-    font-size: 22px;
-    font-weight: 700;
+    align-items: flex-start;
     margin-bottom: 16px;
 }
 
-.crypto-market__chart {
+.crypto-market__coin-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.crypto-market__coin-icon {
+    width: 40px;
     height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.crypto-market__coin-name {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.crypto-market__coin-symbol {
+    font-size: 12px;
+    color: var(--ink-muted);
+}
+
+.crypto-market__price-info {
+    text-align: right;
+}
+
+.crypto-market__price {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.crypto-market__change {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.crypto-market__change-up {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--success);
+}
+
+.crypto-market__change-down {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--danger);
+}
+
+.crypto-market__time {
+    font-size: 12px;
+    color: var(--ink-muted);
+}
+
+.crypto-market__chart {
     width: 100%;
+    height: 80px;
 }
 
 .crypto-market__chart-svg {
@@ -93,9 +124,11 @@
     height: 100%;
 }
 
-.crypto-market__chart-svg path {
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-    vector-effect: non-scaling-stroke;
+.crypto-market__footer-note {
+    text-align: center;
+    font-size: 14px;
+    color: var(--ink-muted);
+    margin-bottom: 24px;
 }
 
 @media (max-width: 1024px) {

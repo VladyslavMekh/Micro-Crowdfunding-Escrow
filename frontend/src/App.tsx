@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Header } from "./components/layout/Header/Header";
 import { HeroSection } from "./features/landing/HeroSection/HeroSection";
+import { CryptoMarketSection } from "./features/landing/CryptoMarketSection/CryptoMarketSection";
 import { WhyUsSection } from "./features/landing/WhyUsSection/WhyUsSection";
 import { HowItWorksSection } from "./features/landing/HowItWorksSection/HowItWorksSection";
 import { Footer } from "./components/layout/Footer/Footer";
@@ -12,6 +13,7 @@ function App() {
             <Header />
             <main>
                 <HeroSection />
+                <CryptoMarketSection />
                 <WhyUsSection />
                 <HowItWorksSection />
             </main>
