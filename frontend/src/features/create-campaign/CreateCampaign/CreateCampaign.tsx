@@ -1,5 +1,6 @@
-import React, {useState} from "react";
-import "./CreateCampaign.css"
+import React, {useState, useMemo} from "react";
+import {useCryptoPrices} from "../../../hooks/useCryptoPrices";
+import "./CreateCampaign.css";
 
 type Currency = "BTC" | "ETH" | "USDT" | "BNB" | "SOL";
 
@@ -8,7 +9,16 @@ const CURRENCY_COLORS: Record<Currency, string> = {
     ETH: "#627EEA",
     USDT: "#26A17B",
     BNB: "#F3BA2F",
-    SOL: "#9945FF"
+    SOL: "#9945FF",
+};
+
+// Той самий маппінг symbol -> coingecko id, що і в CryptoMarketSection
+const CURRENCY_TO_ID: Record<Currency, string> = {
+    BTC: "bitcoin",
+    ETH: "ethereum",
+    USDT: "tether",
+    BNB: "binancecoin",
+    SOL: "solana",
 };
 
 const CATEGORIES = ["Military", "Medical", "Tech", "Education", "Charity"];
@@ -20,7 +30,23 @@ export const CreateCampaign: React.FC = () => {
     const [targetAmount, setTargetAmount] = useState("");
     const [deadlineDays, setDeadlineDays] = useState("30");
     const [imagePreview, setImagePreview] = useState<string | null>(null);
-    const [selectedCurrencies, setSelectedCurrencies] = useState<Currency[]>(["BTC", "ETH", "USDT", "BNB", "SOL"]);
+    const [selectedCurrencies, setSelectedCurrencies] = useState<Currency[]>([
+        "BTC",
+        "ETH",
+        "USDT",
+    ]);
+
+    const primaryCurrency = selectedCurrencies[0] ?? null;
+    const primaryCurrencyId = primaryCurrency ? CURRENCY_TO_ID[primaryCurrency] : null;
+
+    const {prices} = useCryptoPrices(primaryCurrencyId ? [primaryCurrencyId] : []);
+    const primaryPrice = prices?.[0]?.price;
+
+    const targetAmountNum = parseFloat(targetAmount);
+    const usdEquivalent = useMemo(() => {
+        if (!primaryPrice || isNaN(targetAmountNum) || targetAmountNum <= 0) return null;
+        return targetAmountNum * primaryPrice;
+    }, [primaryPrice, targetAmountNum]);
 
     const toggleCurrency = (currency: Currency) => {
         setSelectedCurrencies((prev) =>
@@ -40,12 +66,14 @@ export const CreateCampaign: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // TODO: call Anchor instruction / API creating campaign
+        // TODO: call Anchor instruction / API  creating campaign
         console.log({
             title,
             category,
             description,
-            targetAmount,
+            targetAmount: targetAmountNum,
+            targetCurrency: primaryCurrency,
+            targetAmountUsd: usdEquivalent,
             deadlineDays,
             selectedCurrencies,
         });
@@ -58,8 +86,9 @@ export const CreateCampaign: React.FC = () => {
                     FUNDRAISER</p>
                 <h1 className="create-campaign__title">Create campaign</h1>
                 <p className="create-campaign__subtitle">
-                    Fill in the details below – your fundraiser will be live
-                    on-chain right after submission.
+                    Fill in the details below — your fundraiser will be live
+                    on-chain
+                    right after submission.
                 </p>
 
                 <form className="create-campaign__grid" onSubmit={handleSubmit}>
@@ -106,7 +135,7 @@ export const CreateCampaign: React.FC = () => {
                             <label className="create-campaign__label">Cover
                                 image</label>
                             <label className="create-campaign__dropzone">
-                                {imagePreview ? "Image selected – click to change" : "Drag & drop an image, or click to upload"}
+                                {imagePreview ? "Image selected — click to change" : "Drag & drop an image, or click to upload"}
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -120,13 +149,35 @@ export const CreateCampaign: React.FC = () => {
                             <div className="create-campaign__field">
                                 <label className="create-campaign__label">Target
                                     amount</label>
-                                <input
-                                    className="create-campaign__input"
-                                    placeholder="e.g. 20 ETH"
-                                    value={targetAmount}
-                                    onChange={(e) => setTargetAmount(e.target.value)}
-                                />
+
+                                <div className="create-campaign__amount-row">
+                                    <input
+                                        className="create-campaign__input create-campaign__input--amount"
+                                        type="number"
+                                        min={0}
+                                        step="0.01"
+                                        placeholder="20"
+                                        value={targetAmount}
+                                        onChange={(e) => setTargetAmount(e.target.value)}
+                                    />
+                                    <span
+                                        className="create-campaign__amount-unit">
+                    {primaryCurrency ?? "—"}
+                  </span>
+                                </div>
+
+                                <p className="create-campaign__amount-usd">
+                                    {primaryCurrency === null
+                                        ? "Select a cryptocurrency below first"
+                                        : usdEquivalent !== null
+                                            ? `≈ $${usdEquivalent.toLocaleString("en-US", {
+                                                minimumFractionDigits: 2,
+                                                maximumFractionDigits: 2,
+                                            })}`
+                                            : "= $0.00"}
+                                </p>
                             </div>
+
                             <div className="create-campaign__field">
                                 <label className="create-campaign__label">Deadline
                                     (days)</label>
@@ -144,6 +195,10 @@ export const CreateCampaign: React.FC = () => {
                             <label className="create-campaign__label">
                                 Accepted cryptocurrencies
                             </label>
+                            <p className="create-campaign__hint">
+                                The first one selected is used to price your
+                                target amount.
+                            </p>
                             <div className="create-campaign__chip-row">
                                 {(Object.keys(CURRENCY_COLORS) as Currency[]).map((c) => (
                                     <button
@@ -153,7 +208,7 @@ export const CreateCampaign: React.FC = () => {
                                             selectedCurrencies.includes(c)
                                                 ? "create-campaign__chip--on"
                                                 : ""
-                                        }`}
+                                        } ${primaryCurrency === c ? "create-campaign__chip--primary" : ""}`}
                                         onClick={() => toggleCurrency(c)}
                                     >
                                         {c}
@@ -173,9 +228,9 @@ export const CreateCampaign: React.FC = () => {
                             preview</p>
 
                         <div className="create-campaign__preview-header">
-                            <span className="create-campaign__preview-title">
-                                {title || "Your campaign title"}
-                            </span>
+              <span className="create-campaign__preview-title">
+                {title || "Your campaign title"}
+              </span>
                             <span
                                 className="create-campaign__preview-badge">Active</span>
                         </div>
@@ -192,9 +247,26 @@ export const CreateCampaign: React.FC = () => {
                             {description || "Your campaign description will appear here."}
                         </p>
 
+                        <div className="create-campaign__preview-stats">
+                            <div className="create-campaign__preview-stat">
+                                <span
+                                    className="create-campaign__preview-stat-label">Target</span>
+                                <span
+                                    className="create-campaign__preview-stat-value">
+                  {targetAmount || "0"} {primaryCurrency ?? ""}
+                </span>
+                                <span
+                                    className="create-campaign__preview-stat-sub">
+                  {usdEquivalent !== null
+                      ? `= $${usdEquivalent.toLocaleString("en-US", {maximumFractionDigits: 0})}`
+                      : "= $0"}
+                </span>
+                            </div>
+                        </div>
+
                         <div className="create-campaign__preview-bar">
                             <div className="create-campaign__preview-fill"
-                                 style={{width: "%0"}}/>
+                                 style={{width: "0%"}}/>
                         </div>
 
                         <div className="create-campaign__preview-coins">
@@ -204,13 +276,15 @@ export const CreateCampaign: React.FC = () => {
                                     className="create-campaign__preview-coin"
                                     style={{background: CURRENCY_COLORS[c]}}
                                 >
-                                    {c}
-                                </span>
+                  {c}
+                </span>
                             ))}
                         </div>
                     </aside>
                 </form>
             </div>
         </section>
-    )
-}
+    );
+};
+
+export default CreateCampaign;
