@@ -2,22 +2,19 @@ import React, {useState, useMemo} from "react";
 import {useCryptoPrices} from "../../../hooks/useCryptoPrices";
 import "./CreateCampaign.css";
 
-type Currency = "BTC" | "ETH" | "USDT" | "BNB" | "SOL";
+import solanaIcon from "../../../assets/icons/solana.png";
 
-const CURRENCY_COLORS: Record<Currency, string> = {
-    BTC: "#F7931A",
-    ETH: "#627EEA",
-    USDT: "#26A17B",
-    BNB: "#F3BA2F",
-    SOL: "#9945FF",
+type Currency = "SOL";
+
+const CURRENCY_ICONS: Record<Currency, string> = {
+    SOL: solanaIcon,
+}
+
+const CURRENCY_GRADIENTS: Record<Currency, string> = {
+    SOL: "linear-gradient(135deg, #9945FF 0%, #14F195 100%)",
 };
 
-// Той самий маппінг symbol -> coingecko id, що і в CryptoMarketSection
 const CURRENCY_TO_ID: Record<Currency, string> = {
-    BTC: "bitcoin",
-    ETH: "ethereum",
-    USDT: "tether",
-    BNB: "binancecoin",
     SOL: "solana",
 };
 
@@ -31,9 +28,7 @@ export const CreateCampaign: React.FC = () => {
     const [deadlineDays, setDeadlineDays] = useState("30");
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [selectedCurrencies, setSelectedCurrencies] = useState<Currency[]>([
-        "BTC",
-        "ETH",
-        "USDT",
+        "SOL"
     ]);
 
     const primaryCurrency = selectedCurrencies[0] ?? null;
@@ -161,9 +156,25 @@ export const CreateCampaign: React.FC = () => {
                                         onChange={(e) => setTargetAmount(e.target.value)}
                                     />
                                     <span
-                                        className="create-campaign__amount-unit">
-                    {primaryCurrency ?? "—"}
-                  </span>
+                                        className="create-campaign__amount-unit"
+                                        style={
+                                            primaryCurrency
+                                                ? {
+                                                    background: CURRENCY_GRADIENTS[primaryCurrency],
+                                                    color: "#fff",
+                                                    border: "none"
+                                                }
+                                                : undefined
+                                        }
+                                    >
+                                        {primaryCurrency && (
+                                            <img
+                                                src={CURRENCY_ICONS[primaryCurrency]}
+                                                alt={primaryCurrency}
+                                                className="create-campaign__amount-unit-icon"
+                                            />
+                                        )}
+                                    </span>
                                 </div>
 
                                 <p className="create-campaign__amount-usd">
@@ -200,20 +211,23 @@ export const CreateCampaign: React.FC = () => {
                                 target amount.
                             </p>
                             <div className="create-campaign__chip-row">
-                                {(Object.keys(CURRENCY_COLORS) as Currency[]).map((c) => (
-                                    <button
-                                        type="button"
-                                        key={c}
-                                        className={`create-campaign__chip ${
-                                            selectedCurrencies.includes(c)
-                                                ? "create-campaign__chip--on"
-                                                : ""
-                                        } ${primaryCurrency === c ? "create-campaign__chip--primary" : ""}`}
-                                        onClick={() => toggleCurrency(c)}
-                                    >
-                                        {c}
-                                    </button>
-                                ))}
+                                {(Object.keys(CURRENCY_GRADIENTS) as Currency[]).map((c) => {
+                                    const isOn = selectedCurrencies.includes(c);
+                                    return (
+                                        <button
+                                            type="button"
+                                            key={c}
+                                            className={`create-campaign__chip ${isOn ? "create-campaign__chip--on" : ""} ${
+                                                primaryCurrency === c ? "create-campaign__chip--primary" : ""
+                                            }`}
+                                            style={isOn ? { background: CURRENCY_GRADIENTS[c] } : undefined}
+                                            onClick={() => toggleCurrency(c)}
+                                            >
+                                            <img src={CURRENCY_ICONS[c]} alt={c} className="create-campaign__chip-icon" />
+                                            {c}
+                                        </button>
+                                    );
+                                })}
                             </div>
                         </div>
 
@@ -253,14 +267,35 @@ export const CreateCampaign: React.FC = () => {
                                     className="create-campaign__preview-stat-label">Target</span>
                                 <span
                                     className="create-campaign__preview-stat-value">
-                  {targetAmount || "0"} {primaryCurrency ?? ""}
-                </span>
+                                    {targetAmount || "0"} {primaryCurrency ?? ""}
+                                </span>
                                 <span
                                     className="create-campaign__preview-stat-sub">
-                  {usdEquivalent !== null
-                      ? `= $${usdEquivalent.toLocaleString("en-US", {maximumFractionDigits: 0})}`
-                      : "= $0"}
-                </span>
+                                    {usdEquivalent !== null
+                                    ? `= $${usdEquivalent.toLocaleString("en-US", {maximumFractionDigits: 0})}`
+                                    : "= $0"}
+                                </span>
+                            </div>
+
+                            <div className="create-campaign__preview-stat">
+                                <span className="create-campaign__preview-stat-label">Deadline</span>
+                                <span className="create-campaign__preview-stat-value">
+                                    {deadlineDays || "0"} days
+                                </span>
+                                <span className="create-campaign__preview-stat-sub">
+                                    {deadlineDays && Number(deadlineDays) > 0
+                                    ? `ends ${new Date(
+                                        Date.now() + Number(deadlineDays) * 24 * 60 * 60 * 1000
+                                        ).toLocaleDateString("en-US", { month: "short", day: "numeric" })}`
+                                    : "no end date yet"}
+                                </span>
+                            </div>
+
+                            <div className="create-campaign__preview-stat create-campaign__preview-stat--progress">
+                                <span className="create-campaign__preview-stat-label">Progress</span>
+                                <span className="create-campaign__preview-stat-value create-campaign__preview-stat-value--orange">
+                                    0%
+                                </span>
                             </div>
                         </div>
 
@@ -272,12 +307,13 @@ export const CreateCampaign: React.FC = () => {
                         <div className="create-campaign__preview-coins">
                             {selectedCurrencies.map((c) => (
                                 <span
-                                    key={c}
-                                    className="create-campaign__preview-coin"
-                                    style={{background: CURRENCY_COLORS[c]}}
+                                key={c}
+                                className="create-campaign__preview-coin"
+                                style={{ background: CURRENCY_GRADIENTS[c] }}
                                 >
-                  {c}
-                </span>
+                                    <img src={CURRENCY_ICONS[c]} alt={c} className="create-campaign__preview-coin-icon" />
+                                    {c}
+                                </span>
                             ))}
                         </div>
                     </aside>

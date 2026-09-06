@@ -97,6 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 6px;
     min-width: 64px;
     padding: 0 14px;
     border-radius: 12px;
@@ -106,6 +107,14 @@
     font-size: 13px;
     font-weight: 700;
     color: var(--ink);
+}
+
+.create-campaign__amount-unit-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .create-campaign__amount-usd {
@@ -151,35 +160,52 @@
 .create-campaign__chip {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     padding: 8px 16px;
     border-radius: 20px;
     border: 1.5px solid var(--border);
+    background-clip: padding-box;
     background-color: var(--surface);
     color: var(--ink);
     font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    transition: border-color 0.2s, background-color 0.2s, color 0.2s;
+    transition: border-color 0.2s, background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.create-campaign__chip-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 .create-campaign__chip--on {
-    border-color: var(--orange);
-    background-color: rgba(217, 106, 2, 0.1);
-    color: var(--orange-dark);
+    border: none;
+    padding: 9.5px 17.5px;
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .create-campaign__chip--primary {
-    box-shadow: 0 0 0 2px var(--orange);
+    box-shadow: 0 0 0 2px var(--orange), 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 .create-campaign__preview-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
     margin-bottom: 8px;
 }
 
 .create-campaign__preview-stat {
     display: flex;
     flex-direction: column;
+}
+
+.create-campaign__preview-stat--progress {
+    justify-content: flex-start;
 }
 
 .create-campaign__preview-stat-label {
@@ -192,6 +218,10 @@
     font-family: var(--font-mono);
     font-size: 18px;
     font-weight: 700;
+}
+
+.create-campaign__preview-stat-value--orange {
+    color: var(--orange);
 }
 
 .create-campaign__preview-stat-sub {
@@ -316,11 +346,22 @@
 }
 
 .create-campaign__preview-coin {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     font-size: 11px;
     font-weight: 600;
     padding: 5px 10px;
     border-radius: 8px;
     color: white;
+}
+
+.create-campaign__preview-coin-icon {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    object-fit: contain;
+    flex-shrink: 0;
 }
 
 @media (max-width: 1024px) {
