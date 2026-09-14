@@ -62,7 +62,7 @@ pub fn handler(ctx: Context<Refund>) -> Result<()> {
     let vault_seeds: &[&[u8]] = &[VAULT_SEED, campaign_key.as_ref(), &[vault_bump]];
     let signer_seeds: &[&[&[u8]]] = &[vault_seeds];
 
-    // Refund funds to the donor from the Vault PDA (the program sings on its own behalf)
+    // Refund funds to the donor from the Vault PDA (the programs sings on its own behalf)
     let cpi_accounts = Transfer {
         from: ctx.accounts.vault.to_account_info(),
         to: ctx.accounts.donor.to_account_info(),

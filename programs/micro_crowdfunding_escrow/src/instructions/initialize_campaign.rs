@@ -23,14 +23,14 @@ pub struct InitializeCampaign<'info> {
     )]
     pub campaign: Account<'info, Campaign>,
 
-    /// The vault is an empty SystemAccount owned by the program PDA.
+    /// The vault is an empty SystemAccount owned by the programs PDA.
     /// It physically holds the locked SOL without storing any internal data.
     #[account(
         seeds = [VAULT_SEED, campaign.key().as_ref()],
         bump,
     )]
     /// CHECK: This is a data-less PDA vault; the address is derived via seeds,
-    /// and signing authority is controlled exclusively by the program.
+    /// and signing authority is controlled exclusively by the programs.
     pub vault: SystemAccount<'info>,
 
     pub system_program: Program<'info, System>,

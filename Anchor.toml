@@ -8,14 +8,13 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-micro_crowdfunding_escrow = "..."
+micro_crowdfunding_escrow = "D16hEGXDAVXgZs5porRHsJ654cvKCNYKrLXTaNK2Exwk"
 
 [provider]
 cluster = "devnet"
 wallet = "~/.config/solana/id.json"
 
-[scripts]
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+[hooks]
 
 [test]
 startup_wait = 5000

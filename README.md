@@ -9,7 +9,7 @@ predefined rules – instead of relying on a trusted third party.
 
 The project consists of two parts:
 
-– **`program/`** – the on-chain smart contract (program) build with
+– **`programs`** – the on-chain smart contract (program) build with
 the [Anchor](https://www.anchor-lang.com/) framework. </br>
 – **`frontend/`** – a client application for interacting with the program
 (creating campaigns, contributing, checking escrow status).
@@ -56,7 +56,7 @@ logic is fully enforced by the program's code rather than by a platform
 operator.
 
 *(For the exact list program instructions and their parameters, see the code in
-`program/src`.)*
+`programs`.)*
 
 ## Tech Stack
 
@@ -105,7 +105,7 @@ cd Micro-Crowdfunding-Escrow
 # Install dependencies
 yarn install
 
-# Build the program
+# Build the programs
 anchor build
 
 # (optional) fund your devnet wallet
