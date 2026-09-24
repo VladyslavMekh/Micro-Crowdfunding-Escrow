@@ -8,7 +8,7 @@ resolution = true
 skip-lint = false
 
 [programs.devnet]
-micro_crowdfunding_escrow = "D16hEGXDAVXgZs5porRHsJ654cvKCNYKrLXTaNK2Exwk"
+micro_crowdfunding_escrow = "2HwQRUeaRm8mxQ8g5hua94MMtRiAkQkW9RF4Pw3WpCtt"
 
 [provider]
 cluster = "devnet"

@@ -1,6 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Logo } from "../../shared/Logo/Logo";
+import { useWalletModal } from "@solana/wallet-adapter-react-ui";
+import { useWallet } from "@solana/wallet-adapter-react";
 import "./Header.css";
 
 const NAV_ITEMS = [
@@ -12,6 +14,21 @@ const NAV_ITEMS = [
 ];
 
 export const Header: React.FC = () => {
+    const { setVisible } = useWalletModal();
+    const { connected, publicKey, disconnect } = useWallet();
+
+    const handleWalletClick = () => {
+        if (connected) {
+            disconnect();
+        } else {
+            setVisible(true);
+        }
+    };
+
+    const shortAddress = publicKey
+        ? `${publicKey.toBase58().slice(0, 4)}...${publicKey.toBase58().slice(-4)}`
+        : null;
+
     return (
         <header className="header">
             <div className="header__container">
@@ -33,8 +50,8 @@ export const Header: React.FC = () => {
                 </nav>
 
                 <div className="header__actions">
-                    <button className="header__connect-btn">
-                        Connect wallet
+                    <button className="header__connect-btn" onClick={handleWalletClick}>
+                        {connected ? shortAddress : "Connect wallet"}
                     </button>
                 </div>
             </div>
